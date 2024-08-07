@@ -1,0 +1,12 @@
+ktor:
+  deployment:
+    port: 8080
+    host: "0.0.0.0"
+  application:
+    modules:
+      - moe.zenith.ApplicationKt.module
+
+ktorm:
+  sqlite:
+    url: "jdbc:sqlite:./memo.db"
+    driver: "org.sqlite.JDBC"
