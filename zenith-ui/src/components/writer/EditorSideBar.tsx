@@ -49,7 +49,7 @@ export const EditorSideBar = () => {
     const [categoryList, setCategoryList] = useState<category[]>([]);
     const [selection, setSelection] = useState<string | null>(null);
     const selectionAction: SelectStaticProps['action'] = useRef(null);
-    const [checking,] = useState(false);
+    const [checking, setChecking] = useState(false);
 
     useEffect(() => {
         if (location.pathname.split("/")[1] === "writeblog") {

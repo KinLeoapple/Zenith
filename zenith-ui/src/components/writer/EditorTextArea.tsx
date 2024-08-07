@@ -10,7 +10,7 @@ import {
 } from "@mui/joy";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectEditorSize} from "@/assets/lib/data/reducer/writer/editor_size_slice";
 import "highlight.js/styles/atom-one-dark.min.css";
 import Markdown from "react-markdown";
@@ -93,9 +93,11 @@ const toolBarItems = [
 
 export const EditorTextArea = () => {
     const theme = useColorScheme();
-    // const dispatch = useDispatch();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const dispatch = useDispatch();
     const [markdown, setMarkdown] = useState("");
-    const [length,] = useState(0);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [length, setLength] = useState(0);
     const editorSize = useSelector(selectEditorSize);
 
     useEffect(() => {
@@ -113,7 +115,8 @@ export const EditorTextArea = () => {
         setMarkdown(value);
     }
 
-    // const uploadImg = async () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const uploadImg = async () => {
         // return new Promise(resolve => {
         //     post_img(localStorage.getItem("token"), file).then(r => {
         //         if (r.saved !== null && r.saved !== undefined) {
@@ -121,7 +124,7 @@ export const EditorTextArea = () => {
         //         }
         //     });
         // });
-    // };
+    };
 
     return (
         <>

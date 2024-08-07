@@ -7,8 +7,7 @@ export const SignUp = () => {
                 center={{
                     el:
                         <></>,
-                    show: true,
-                    fixed: true
+                    show: true
                 }}
             />
         </>

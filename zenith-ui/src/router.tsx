@@ -1,5 +1,5 @@
 import {
-    createHashRouter,
+    createBrowserRouter,
 
 } from "react-router-dom";
 
@@ -10,7 +10,7 @@ import {SignUp} from "@/components/signup/SignUp.tsx";
 import {Home} from "@/components/home/Home.tsx";
 import {Writer} from "@/components/writer/Writer.tsx";
 
-const routers = createHashRouter([
+const routers = createBrowserRouter([
     {
         path: "/",
         element: <Home/>,
