@@ -8,7 +8,7 @@ import {scroll_to_top} from "@/assets/lib/utils/scroll.js";
 import {ConditionType, selectCondition} from "@/assets/lib/data/reducer/blog/condition_slice.js";
 import {BlogCard} from "@/components/blog/BlogCard.jsx";
 import {setFilterNumberValue} from "@/assets/lib/data/reducer/blog/blog_filter_number_slice.js";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import {selectUserBasicInfo} from "@/assets/lib/data/reducer/user_basic_info_slice.js";
 import {selectLoginState} from "@/assets/lib/data/reducer/login_state_slice.js";
 
@@ -26,20 +26,19 @@ export const BlogList = () => {
     const conditions = useSelector(selectCondition);
     const dispatch = useDispatch();
     const location = useLocation();
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (location.pathname.split("/")[1] === "blog") {
             if (loginState) {
                 userId.current = params.id ? params.id : userBasicInfo.id;
                 if (userId.current === undefined || userId.current === null) {
-                    navigate("/login", {replace: true});
+                    window.location.replace("/login");
                 }
                 setRefresh(!refresh)
             } else {
                 userId.current = params.id;
                 if (userId.current === undefined || userId.current === null) {
-                    navigate("/login", {replace: true});
+                    window.location.replace("/login");
                 }
             }
         }

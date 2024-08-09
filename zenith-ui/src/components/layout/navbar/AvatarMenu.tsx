@@ -3,7 +3,6 @@ import {AccountCircle, Logout} from "@mui/icons-material";
 import {useDispatch} from "react-redux";
 import {setLoginStateValue} from "@/assets/lib/data/reducer/login_state_slice.js";
 import {setUserBasicInfoValue} from "@/assets/lib/data/reducer/user_basic_info_slice.js";
-import {useNavigate} from "react-router-dom";
 import {color_css_var} from "@/assets/lib/utils/color_css_var.js";
 import {MENU_ITEM, MENU_ITEM_DARK} from "@/assets/lib/data/static.ts";
 import {cloneElement, FC} from "react";
@@ -19,7 +18,6 @@ export const AvatarMenu: FC<PropData> = ({
                            }) => {
     const themeMode = useColorScheme();
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const menuItems = [
         {
@@ -45,7 +43,7 @@ export const AvatarMenu: FC<PropData> = ({
             quote: null,
             quoteName: null
         }));
-        navigate("/", {replace: true});
+        window.location.replace("/");
     }
 
     return (

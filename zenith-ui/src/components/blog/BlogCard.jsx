@@ -21,7 +21,7 @@ import {newSearchBlogKeyword, setSearchBlogKeyword} from "@/assets/lib/data/redu
 import {AutoFixHigh, Delete, MoreVert} from "@mui/icons-material";
 import {useCallback, useEffect, useRef, useState} from "react";
 import {color_css_var} from "@/assets/lib/utils/color_css_var.js";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {selectUserBasicInfo} from "@/assets/lib/data/reducer/user_basic_info_slice.js";
 import {selectLoginState} from "@/assets/lib/data/reducer/login_state_slice.js";
 import {setBlogDeleteValue} from "@/assets/lib/data/reducer/blog/blog_delete_slice.js";
@@ -52,7 +52,6 @@ export const BlogCard = ({
     const params = useParams();
     const userId = useRef(params.id);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const blogOpButton = useSelector(selectBlogOpButton);
     const userBasicInfo = useSelector(selectUserBasicInfo);
     const loginState = useSelector(selectLoginState);
@@ -130,7 +129,7 @@ export const BlogCard = ({
         e.stopPropagation();
         setOpen(false);
         openRef.current = false;
-        navigate(`/writeblog/${id}`, {replace: true});
+        window.location.replace(`/writeblog/${id}`);
     }
 
     function deleteBlog(e) {

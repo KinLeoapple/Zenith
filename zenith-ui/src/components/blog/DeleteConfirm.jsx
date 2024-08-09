@@ -1,12 +1,10 @@
 import {Box, Button, Modal, ModalDialog, Typography} from "@mui/joy";
 import {useEffect, useState} from "react";
 import {delete_blog} from "@/assets/lib/api/api.ts";
-import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {selectBlogDelete, setBlogDeleteValue} from "@/assets/lib/data/reducer/blog/blog_delete_slice.js";
 
 export const DeleteConfirm = () => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const blogDelete = useSelector(selectBlogDelete);
     const [open, setOpen] = useState(false);
@@ -23,7 +21,7 @@ export const DeleteConfirm = () => {
         delete_blog(localStorage.getItem("token"), blogDelete).then(r => {
             if (r !== null) {
                 if (r.deleted) {
-                    navigate("/blog", {replace: true});
+                    window.location.replace("/blog");
                 }
             }
         });

@@ -4,7 +4,7 @@ import {
     Grid, IconButton,
     Input, MenuButton, Skeleton, useColorScheme
 } from "@mui/joy";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import Search from '@mui/icons-material/Search';
 import {FC, useCallback, useEffect, useRef, useState} from "react";
 import avatar from "@/assets/img/avatar.webp";
@@ -53,7 +53,6 @@ export const NavBar: FC<PropData> = ({
     const [quote, setQuote] = useState(userBasicInfo.quote);
     const [quoteName, setQuoteName] = useState(userBasicInfo.quoteName);
 
-    const navigate = useNavigate();
     const isLogin = useSelector(selectLoginState);
     const [login, setLogin] = useState(isLogin);
 
@@ -157,7 +156,7 @@ export const NavBar: FC<PropData> = ({
     }, [keyword]);
 
     function signIn() {
-        navigate("/login", {replace: true});
+        window.location.replace("/login");
     }
 
     function handleSearchChange(e: Event | React.FormEvent<HTMLDivElement>) {

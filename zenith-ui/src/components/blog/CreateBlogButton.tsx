@@ -1,13 +1,12 @@
 import {Button} from "@mui/joy";
 import {Add} from "@mui/icons-material";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
 import {selectLoginState} from "@/assets/lib/data/reducer/login_state_slice";
 import {selectUserBasicInfo} from "@/assets/lib/data/reducer/user_basic_info_slice";
 
 export const CreateBlogButton = () => {
-    const navigate = useNavigate();
     const params = useParams();
     const loginState = useSelector(selectLoginState);
     const userBasicInfo = useSelector(selectUserBasicInfo);
@@ -24,14 +23,14 @@ export const CreateBlogButton = () => {
                     setIsDisplay(userId.current === userBasicInfo.id);
                 }
             } else {
-                navigate("/login", {replace: true});
+                window.location.replace("/login");
             }
         }
     }, []);
 
     function newBlog(e:  React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
         e.stopPropagation();
-        navigate(`/writeblog`, {replace: true});
+        window.location.replace("/writeblog");
     }
 
     return (

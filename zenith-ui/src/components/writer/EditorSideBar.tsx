@@ -19,7 +19,7 @@ import {selectCoverImage, setCoverImageValue} from "@/assets/lib/data/reducer/wr
 import {setCoverModalOpenValue} from "@/assets/lib/data/reducer/writer/cover_modal_open_slice";
 import {setSelectedCoverImageValue} from "@/assets/lib/data/reducer/writer/selected_cover_image_slice";
 import {get_category, get_category_all} from "@/assets/lib/api/api.ts";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import {selectLoginState} from "@/assets/lib/data/reducer/login_state_slice";
 import {selectEditorText} from "@/assets/lib/data/reducer/writer/editor_text_slice";
 
@@ -38,7 +38,6 @@ export const EditorSideBar = () => {
     const blogId = useRef(params.id);
     const loginState = useSelector(selectLoginState);
     const location = useLocation();
-    const navigate = useNavigate();
     const editorText = useSelector(selectEditorText);
     const [disabled, setDisabled] = useState(false);
     const [isModify, setIsModify] = useState(false);
@@ -62,7 +61,7 @@ export const EditorSideBar = () => {
                 }
                 getCategory();
             } else {
-                navigate("/login", {replace: true});
+                window.location.replace("/login");
             }
         }
     }, []);

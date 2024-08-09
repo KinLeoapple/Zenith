@@ -20,7 +20,6 @@ import {
     Visibility,
     VisibilityOff
 } from "@mui/icons-material";
-import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {post_login} from "@/assets/lib/api/api.ts";
 import {useDispatch, useSelector} from "react-redux";
@@ -29,7 +28,6 @@ import {setUserBasicInfoValue} from "@/assets/lib/data/reducer/user_basic_info_s
 
 export const LoginCard = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const [visibility, setVisibility] = useState(false);
     const [checking, setChecking] = useState(false);
@@ -43,9 +41,9 @@ export const LoginCard = () => {
 
     useEffect(() => {
         if (isLogin) {
-            navigate("/", {replace: true});
+            window.location.replace("/");
         }
-    }, [isLogin, navigate]);
+    }, [isLogin]);
 
     useEffect(() => {
         snackbarOpen ? null : setErrorMsg("");
@@ -83,7 +81,7 @@ export const LoginCard = () => {
 
 
     function toSignUp() {
-        navigate("/signup", {replace: true});
+        window.location.replace("/signup");
     }
 
     async function login() {
@@ -103,7 +101,7 @@ export const LoginCard = () => {
                         dispatch(setUserBasicInfoValue({
                             id: id
                         }));
-                        navigate("/", {replace: true});
+                        window.location.replace("/");
                     } else {
                         setErrorMsg(response.msg);
                         setSnackbarOpen(true);
