@@ -5,8 +5,3 @@ ktor:
   application:
     modules:
       - moe.zenith.ApplicationKt.module
-
-ktorm:
-  sqlite:
-    url: "jdbc:sqlite:./memo.db"
-    driver: "org.sqlite.JDBC"

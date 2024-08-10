@@ -11,6 +11,7 @@ import {setFilterNumberValue} from "@/assets/lib/data/reducer/blog/blog_filter_n
 import {useLocation, useParams} from "react-router-dom";
 import {selectUserBasicInfo} from "@/assets/lib/data/reducer/user_basic_info_slice.js";
 import {selectLoginState} from "@/assets/lib/data/reducer/login_state_slice.js";
+import {NoBlogsBox} from "@/components/blog/NoBlogsBox.tsx";
 
 export const BlogList = () => {
     const params = useParams();
@@ -137,8 +138,8 @@ export const BlogList = () => {
     }
 
     return (
-        <>
-            {
+        <>{filterBlogs.data.length > 0 ?
+            <>{
                 filterBlogs.data.sort((a, b) => {
                     return Number(b.date) - Number(a.date);
                 }).map((blog, i) => (
@@ -150,7 +151,8 @@ export const BlogList = () => {
                               desc={blog.desc}
                     />
                 ))
-            }
+            }</> : <NoBlogsBox/>
+        }
         </>
     )
 }

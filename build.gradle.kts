@@ -1,10 +1,10 @@
-import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.dokka.gradle.DokkaTaskPartial
 import org.jetbrains.dokka.DokkaConfiguration.Visibility
+import org.jetbrains.dokka.gradle.DokkaTask
 
-val ktor_version: String by project
-val kotlin_version: String by project
-val logback_version: String by project
+val ktorVersion: String by project
+val kotlinVersion: String by project
+val logbackVersion: String by project
+val exposedVersion: String by project
 
 plugins {
     kotlin("jvm") version "1.9.23"
@@ -62,20 +62,30 @@ dependencies {
     implementation("io.ktor:ktor-serialization-gson-jvm")
     implementation("io.ktor:ktor-server-cors-jvm")
     implementation("io.ktor:ktor-server-netty-jvm")
-    implementation("ch.qos.logback:logback-classic:$logback_version")
-    implementation("com.alibaba:druid:1.2.18")
-    implementation("org.ktorm:ktorm-support-sqlite:3.6.0")
-    implementation("org.xerial:sqlite-jdbc:3.45.3.0")
+
+    implementation("ch.qos.logback:logback-classic:$logbackVersion")
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposedVersion")
+    implementation("org.postgresql:postgresql:42.7.2")
+    implementation("com.zaxxer:HikariCP:5.1.0")
+
     implementation("io.ktor:ktor-server-config-yaml")
+
     implementation("com.auth0:java-jwt:4.4.0")
-    implementation("io.ktor:ktor-server-auth:$ktor_version")
-    implementation("io.ktor:ktor-server-auth-jwt:$ktor_version")
-    implementation("io.ktor:ktor-server-sessions:$ktor_version")
-    implementation("io.ktor:ktor-server-default-headers:$ktor_version")
+    implementation("io.ktor:ktor-server-auth:$ktorVersion")
+    implementation("io.ktor:ktor-server-auth-jwt:$ktorVersion")
+
+    implementation("io.ktor:ktor-server-sessions:$ktorVersion")
+
+    implementation("io.ktor:ktor-server-default-headers:$ktorVersion")
+
     implementation("cn.hutool:hutool-all:5.8.28")
     implementation("com.github.yitter:yitter-idgenerator:1.0.6")
+
     testImplementation("io.ktor:ktor-server-tests-jvm")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
 
     implementation("io.github.smiley4:ktor-swagger-ui:2.9.0")
 }

@@ -2,8 +2,8 @@ import {crypt_str} from "@/assets/lib/crypt/crypt.ts";
 import {MAX_PER_PAGE} from "@/assets/lib/data/static.ts";
 import {request} from "@/assets/lib/api/request.ts";
 
-export function basic_info(id: string | number) {
-    return request(`/basic_info/${id}`, {
+export function user_info(id: string | number) {
+    return request(`/user/${id}`, {
         method: "GET",
         withCredentials: true,
     });

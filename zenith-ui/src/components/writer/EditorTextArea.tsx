@@ -187,7 +187,7 @@ export const EditorTextArea = () => {
                                     }}>
                                         <MonacoEditor
                                             width="100%"
-                                            height="100%"
+                                            height={editorSize.height - 135}
                                             language="markdown"
                                             theme={theme.mode === "dark" ? "vs-dark" : "vs"}
                                             value={markdown}

@@ -57,7 +57,7 @@ export const CategoriesList = () => {
     }
 
     return (
-        <>
+        <>{categories.length > 0 &&
             <List
                 className={'select-none'}
                 size="lg"
@@ -98,7 +98,7 @@ export const CategoriesList = () => {
                         </ListItemButton>
                     </ListItem>
                 ))}
-            </List>
+            </List>}
         </>
     )
 }

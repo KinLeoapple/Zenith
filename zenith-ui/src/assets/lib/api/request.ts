@@ -8,8 +8,11 @@ const prefix = api_prefix();
 export const request = (url: string, options: object = {}) => {
     return new Promise(resolve => {
         const controller = new AbortController();
-        const signal = {signal: controller.signal};
-        Object.assign(options, signal);
+        const fixedOptions = {
+            signal: controller.signal,
+            timeout: MAX_REQUEST_TIMEOUT * 1000,
+        };
+        Object.assign(options, fixedOptions);
 
         const request = axios(`${prefix}/${url}`, options).then(r => {
             clearTimeout(abortTimer);

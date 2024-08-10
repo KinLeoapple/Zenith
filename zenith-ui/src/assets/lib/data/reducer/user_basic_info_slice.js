@@ -6,8 +6,7 @@ export const user_basic_info_slice = createSlice({
         value: {
             id: null,
             name: null,
-            quote: null,
-            quoteName: null
+            desc: null
         },
     },
     reducers: {

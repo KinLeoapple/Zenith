@@ -8,7 +8,7 @@ import {Link, useLocation} from "react-router-dom";
 import Search from '@mui/icons-material/Search';
 import {FC, useCallback, useEffect, useRef, useState} from "react";
 import avatar from "@/assets/img/avatar.webp";
-import {basic_info, post_token_login} from "@/assets/lib/api/api.js";
+import {user_info, post_token_login} from "@/assets/lib/api/api.js";
 import {AvatarMenu} from "@/components/layout/navbar/AvatarMenu.tsx";
 import {useDispatch, useSelector} from "react-redux";
 import {selectLoginState, setLoginStateValue} from "@/assets/lib/data/reducer/login_state_slice.js";
@@ -50,8 +50,7 @@ export const NavBar: FC<PropData> = ({
     // Basic Information
     const userBasicInfo = useSelector(selectUserBasicInfo);
     const [name, setName] = useState(userBasicInfo.name);
-    const [quote, setQuote] = useState(userBasicInfo.quote);
-    const [quoteName, setQuoteName] = useState(userBasicInfo.quoteName);
+    const [desc, setDesc] = useState(userBasicInfo.desc);
 
     const isLogin = useSelector(selectLoginState);
     const [login, setLogin] = useState(isLogin);
@@ -126,30 +125,26 @@ export const NavBar: FC<PropData> = ({
     useEffect(() => {
         if (login) {
             setLoading(true);
-            basic_info(userBasicInfo.id).then(r => {
+            user_info(userBasicInfo.id).then(r => {
                 if (r instanceof Object) {
                     const response = r as {
                         name: string,
-                        quote: string,
-                        quote_name: string
+                        desc: string
                     };
                     const name = response.name;
-                    const quote = response.quote;
-                    const quoteName = response.quote_name;
+                    const desc = response.desc;
                     setName(name);
-                    setQuote(quote);
-                    setQuoteName(quoteName);
+                    setDesc(desc);
                     dispatch(setUserBasicInfoValue({
                         id: userBasicInfo.id,
                         name: name,
-                        quote: quote,
-                        quoteName: quoteName
+                        desc: desc,
                     }));
                 }
                 setLoading(false);
             });
         }
-    }, [dispatch, login, name, quote, quoteName]);
+    }, [dispatch, login, name, desc]);
 
     useEffect(() => {
         setSearchText(keyword.value);

@@ -71,7 +71,12 @@ export const Layout = ({
 
     return (
         <>
-            <Stack className={`min-h-full min-w-full`}>
+            <Stack sx={{
+                minWidth: "100%",
+                minHeight: "100%",
+                flexGrow: 1,
+                flex: 1
+            }}>
                 {navigate &&
                     <>
                         {navBar}
@@ -81,14 +86,14 @@ export const Layout = ({
                 {!renderPending &&
                     <Grid className={`min-h-full min-w-full flex justify-between gap-1`} container spacing={0}
                           columns={4}
-                          sx={{flexGrow: 1}}>
+                          flexGrow={1}>
                         <Grid xs={0.8} className={`flex flex-col gap-5 ${marginLeft ? 'ml-5' : ''}`}>
                             <div className={`${left.fixed ? 'fixed w-[20%]' : ''}
                         h-[100%] flex-shrink-0`}>
                                 {left.el}
                             </div>
                         </Grid>
-                        <Grid xs={2}>
+                        <Grid xs={2} flexGrow={1}>
                             <div className={`min-h-full flex-shrink-0`}>
                                 {content.el}
                             </div>
