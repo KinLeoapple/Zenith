@@ -1,4 +1,4 @@
-package moe.zenith.dataclass
+package moe.zenith.dataclass.login
 
 import com.google.gson.annotations.SerializedName
 

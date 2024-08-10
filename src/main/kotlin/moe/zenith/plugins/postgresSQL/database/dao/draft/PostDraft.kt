@@ -2,7 +2,7 @@ package moe.zenith.plugins.postgresSQL.database.dao.draft
 
 import com.google.gson.Gson
 import kotlinx.datetime.toKotlinLocalDateTime
-import moe.zenith.dataclass.PostDraftData
+import moe.zenith.dataclass.draft.PostDraftData
 import moe.zenith.plugins.postgresSQL.database.relation.Draft
 import moe.zenith.util.generateId
 import org.jetbrains.exposed.sql.insert
@@ -22,7 +22,7 @@ fun postDraft(json: String, id: Long?): Map<String, String?> {
     try {
         val dataClass: PostDraftData = Gson().fromJson(json, PostDraftData::class.java)
 
-        if (dataClass.draft != "null" && dataClass.draft.trimIndent().isNotEmpty()) {
+        if (dataClass.content != "null" && dataClass.content.trimIndent().isNotEmpty()) {
             val newId = generateId(id) // get id or generate id
             // save to file
             val saveTo = File("./draft/$newId")
@@ -30,7 +30,7 @@ fun postDraft(json: String, id: Long?): Map<String, String?> {
             if (!saveTo.exists()) {
                 saveTo.createNewFile()
             }
-            saveTo.writeText(dataClass.draft) // write to file
+            saveTo.writeText(dataClass.content) // write to file
 
             // store to database
             transaction {

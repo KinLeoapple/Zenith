@@ -2,7 +2,7 @@ package moe.zenith.plugins.postgresSQL.database.dao.blog
 
 import com.google.gson.Gson
 import kotlinx.datetime.toKotlinLocalDateTime
-import moe.zenith.dataclass.PostBlogData
+import moe.zenith.dataclass.blog.PostBlogData
 import moe.zenith.plugins.postgresSQL.database.dao.draft.deleteDraft
 import moe.zenith.plugins.postgresSQL.database.relation.Blog
 import moe.zenith.util.generateId
@@ -23,7 +23,7 @@ fun postBlog(json: String, id: Long?): Map<String, String?> {
     try {
         val dataClass: PostBlogData = Gson().fromJson(json, PostBlogData::class.java)
 
-        if (dataClass.blog != "null" && dataClass.blog.trimIndent().isNotEmpty()) {
+        if (dataClass.content != "null" && dataClass.content.trimIndent().isNotEmpty()) {
             val newId = generateId(id) // get id or generate id
             // save to file
             val saveTo = File("./blog/$newId")
@@ -31,26 +31,26 @@ fun postBlog(json: String, id: Long?): Map<String, String?> {
             if (!saveTo.exists()) {
                 saveTo.createNewFile()
             }
-            saveTo.writeText(dataClass.blog) // write to file
+            saveTo.writeText(dataClass.content) // write to file
 
             // store to database
             transaction {
                 try {
                     Blog.insert {
                         it[blogId] = newId
-                        it[catId] = dataClass.catId.toLong()
+                        it[catId] = dataClass.id.toLong()
                         it[blogPubDt] = LocalDateTime.now().toKotlinLocalDateTime()
                         it[blogPath] = saveTo.path
                         it[blogTitle] = dataClass.title
-                        it[blogDescription] = dataClass.blogDes
+                        it[blogDescription] = dataClass.description
                     }
                 } catch (e: Exception) {
                     Blog.update({ Blog.blogId eq newId }) {
-                        it[catId] = dataClass.catId.toLong()
+                        it[catId] = dataClass.id.toLong()
                         it[blogPubDt] = LocalDateTime.now().toKotlinLocalDateTime()
                         it[blogPath] = saveTo.path
                         it[blogTitle] = dataClass.title
-                        it[blogDescription] = dataClass.blogDes
+                        it[blogDescription] = dataClass.description
                     }
                 }
             }

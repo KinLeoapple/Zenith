@@ -1,4 +1,4 @@
-package moe.zenith.dataclass
+package moe.zenith.dataclass.blog
 
 import com.google.gson.annotations.SerializedName
 
@@ -6,9 +6,9 @@ data class PostBlogData(
     @SerializedName("title")
     val title: String,
     @SerializedName("blog")
-    val blog: String,
+    val content: String,
     @SerializedName("cat_id")
-    val catId: String,
+    val id: String,
     @SerializedName("blog_des")
-    val blogDes: String,
+    val description: String,
 )

@@ -1,8 +1,8 @@
-package moe.zenith.dataclass
+package moe.zenith.dataclass.blog
 
 import com.google.gson.annotations.SerializedName
 
 data class DeleteBlogData(
     @SerializedName("blog_id")
-    val blogId: String,
+    val id: String
 )

@@ -1,8 +1,8 @@
-package moe.zenith.dataclass
+package moe.zenith.dataclass.draft
 
 import com.google.gson.annotations.SerializedName
 
 data class DeleteDraftData(
     @SerializedName("draft_id")
-    val draftId: String,
+    val id: String
 )

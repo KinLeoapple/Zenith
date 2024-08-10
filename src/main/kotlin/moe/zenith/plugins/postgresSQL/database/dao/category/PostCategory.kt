@@ -1,7 +1,7 @@
 package moe.zenith.plugins.postgresSQL.database.dao.category
 
 import com.google.gson.Gson
-import moe.zenith.dataclass.CategoryData
+import moe.zenith.dataclass.category.CategoryData
 import moe.zenith.plugins.postgresSQL.database.relation.Category
 import moe.zenith.util.generateId
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
@@ -20,7 +20,7 @@ fun postCategory(json: String, id: Long?): Map<String, String?> {
     try {
         val dataClass: CategoryData = Gson().fromJson(json, CategoryData::class.java)
 
-        if (dataClass.catName != "null" && dataClass.catName.trimIndent().isNotEmpty()) {
+        if (dataClass.categoryName != "null" && dataClass.categoryName.trimIndent().isNotEmpty()) {
             val newId = generateId(id) // get id or generate id
 
             // store to database
@@ -28,18 +28,18 @@ fun postCategory(json: String, id: Long?): Map<String, String?> {
                 transaction {
                     Category.insert {
                         it[catId] = newId
-                        it[catName] = dataClass.catName
+                        it[catName] = dataClass.categoryName
                     }
                 }
             } catch (e: Exception) {
                 val count = transaction {
-                    Category.select(Category.catName eq dataClass.catName).count()
+                    Category.select(Category.catName eq dataClass.categoryName).count()
                 }
                 when (count <= 0) {
                     true -> return mapOf("posted" to null)
                     false -> transaction {
                         Category.update({ Category.catId eq newId }) {
-                            it[catName] = dataClass.catName
+                            it[catName] = dataClass.categoryName
                         }
                     }
                 }

@@ -28,7 +28,7 @@ export const NoBlogsBox = () => {
                     }}>s</span>
                     <span style={{
                         fontSize: "1.3rem"
-                    }}>eems no blogs here...</span>
+                    }}>eems no blogs here yet...</span>
                 </Typography>
             </Box>
         </>

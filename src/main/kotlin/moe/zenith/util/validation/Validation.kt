@@ -42,3 +42,14 @@ fun isUndefined(str: String?): Boolean {
     }
     return false
 }
+
+fun isStringInLength(str: String?, length: Int, trim: Boolean = false): Boolean {
+    str?.let {
+        val s = when (trim) {
+            true -> it.trim()
+            false -> it
+        }
+        return s.length <= length
+    }
+    return false
+}

@@ -1,7 +1,7 @@
 package moe.zenith.plugins.postgresSQL.database.dao.blog
 
 import com.google.gson.Gson
-import moe.zenith.dataclass.DeleteBlogData
+import moe.zenith.dataclass.blog.DeleteBlogData
 import moe.zenith.plugins.postgresSQL.database.relation.Blog
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
@@ -20,11 +20,11 @@ fun deleteBlog(json: String): Map<String, Boolean> {
     // delete the information in database anyway.
     transaction {
         Blog.deleteWhere {
-            blogId eq dataClass.blogId.toLong()
+            blogId eq dataClass.id.toLong()
         }
     }
     // try to delete file
-    val blogFile = File("./blog/${dataClass.blogId}")
+    val blogFile = File("./blog/${dataClass.id}")
     blogFile.delete()
     return mapOf("deleted" to true)
 }

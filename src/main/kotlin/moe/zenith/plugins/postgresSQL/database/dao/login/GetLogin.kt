@@ -6,7 +6,7 @@ import com.google.gson.Gson
 import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.sessions.*
-import moe.zenith.dataclass.LoginData
+import moe.zenith.dataclass.login.LoginData
 import moe.zenith.dataclass.SessionData
 import moe.zenith.plugins.jwt.auth.Auth
 import moe.zenith.plugins.postgresSQL.database.relation.User

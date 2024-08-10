@@ -227,7 +227,7 @@ export function post_category(token: string,
             Authorization: `Bearer ${token}`,
         },
         data: JSON.stringify({
-            catName: categoryName,
+            cat_name: categoryName,
         })
     });
 }
