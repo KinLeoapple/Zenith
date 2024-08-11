@@ -5,6 +5,7 @@ import kotlinx.datetime.toKotlinLocalDateTime
 import moe.zenith.dataclass.draft.PostDraftData
 import moe.zenith.plugins.postgresSQL.database.relation.Draft
 import moe.zenith.util.generateId
+import moe.zenith.util.validation.isStringInLength
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
@@ -23,6 +24,11 @@ fun postDraft(json: String, id: Long?): Map<String, String?> {
         val dataClass: PostDraftData = Gson().fromJson(json, PostDraftData::class.java)
 
         if (dataClass.content != "null" && dataClass.content.trimIndent().isNotEmpty()) {
+
+            if (!isStringInLength(dataClass.title, 0, 40)) {
+                return mapOf("saved" to null)
+            }
+
             val newId = generateId(id) // get id or generate id
             // save to file
             val saveTo = File("./draft/$newId")
@@ -30,7 +36,7 @@ fun postDraft(json: String, id: Long?): Map<String, String?> {
             if (!saveTo.exists()) {
                 saveTo.createNewFile()
             }
-            saveTo.writeText(dataClass.content) // write to file
+            saveTo.writeText(dataClass.content.trim()) // write to file
 
             // store to database
             transaction {
@@ -39,13 +45,13 @@ fun postDraft(json: String, id: Long?): Map<String, String?> {
                         it[draftId] = newId
                         it[draftUpdateDt] = LocalDateTime.now().toKotlinLocalDateTime()
                         it[draftPath] = saveTo.path
-                        it[draftTitle] = dataClass.title
+                        it[draftTitle] = dataClass.title.trim()
                     }
                 } catch (e: Exception) {
                     Draft.update({ Draft.draftId eq newId }) {
                         it[draftUpdateDt] = LocalDateTime.now().toKotlinLocalDateTime()
                         it[draftPath] = saveTo.path
-                        it[draftTitle] = dataClass.title
+                        it[draftTitle] = dataClass.title.trim()
                     }
                 }
             }

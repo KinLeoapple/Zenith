@@ -1,11 +1,14 @@
 # TODOS
 
  - Finish the blog modify function.
- - Update the ORM.
- - Implement data validation.
- - Finish the Sign up function.
+ - Finish the sign-up function.
  - Think about the home page (important !!!)
 
-# Next Stage
+# DOING
 
+ - Implement data validation.
  - Use TS to replace JS.
+
+# Next Stage 
+
+ - N/A

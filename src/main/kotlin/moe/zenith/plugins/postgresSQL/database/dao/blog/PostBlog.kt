@@ -6,6 +6,7 @@ import moe.zenith.dataclass.blog.PostBlogData
 import moe.zenith.plugins.postgresSQL.database.dao.draft.deleteDraft
 import moe.zenith.plugins.postgresSQL.database.relation.Blog
 import moe.zenith.util.generateId
+import moe.zenith.util.validation.isStringInLength
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
@@ -24,6 +25,15 @@ fun postBlog(json: String, id: Long?): Map<String, String?> {
         val dataClass: PostBlogData = Gson().fromJson(json, PostBlogData::class.java)
 
         if (dataClass.content != "null" && dataClass.content.trimIndent().isNotEmpty()) {
+
+            if (!isStringInLength(dataClass.title, 0, 40)) {
+                return mapOf("saved" to null)
+            }
+
+            if (!isStringInLength(dataClass.description, 0, 40)) {
+                return mapOf("saved" to null)
+            }
+
             val newId = generateId(id) // get id or generate id
             // save to file
             val saveTo = File("./blog/$newId")

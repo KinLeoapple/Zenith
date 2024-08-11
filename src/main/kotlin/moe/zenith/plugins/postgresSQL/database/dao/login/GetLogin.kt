@@ -10,6 +10,7 @@ import moe.zenith.dataclass.login.LoginData
 import moe.zenith.dataclass.SessionData
 import moe.zenith.plugins.jwt.auth.Auth
 import moe.zenith.plugins.postgresSQL.database.relation.User
+import moe.zenith.util.validation.isStringInLength
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -25,6 +26,20 @@ fun getLogin(json: String, call: ApplicationCall): Map<String, String?> {
     var pass: String? = null
 
     val dataClass: LoginData = Gson().fromJson(json, LoginData::class.java)
+
+    if (!isStringInLength(dataClass.username, 0, 30)) {
+        return mapOf(
+            "login" to null,
+            "msg" to "Error"
+        )
+    }
+
+    if (!isStringInLength(dataClass.password, 0, 40)) {
+        return mapOf(
+            "login" to null,
+            "msg" to "Error"
+        )
+    }
 
     var decryptPass: String? = null
     val sessionData = call.sessions.get<SessionData>()
